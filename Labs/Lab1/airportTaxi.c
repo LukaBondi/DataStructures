@@ -1,6 +1,7 @@
 /* 
 	Airport Taxi Queue Template
  	Created by Pasin Manurangsi, 2025-01-08
+	Modified by Luka Bond, 2025-01-24
 */
 
 #include <stdio.h>
@@ -113,8 +114,8 @@ void freeAll(queue_t* _queue)
 	}
 }
 
-/*
-taxiArrival: 
+/* 
+partyArrival: Handles an arrival of a new taxi
 */
 void taxiArrival()
 {
@@ -134,17 +135,17 @@ void taxiArrival()
 	}
 	++taxiRegistration;
 }
- 
- /* Handles an arrival of a new party.
-  * Arguments:
-  *			count		- the number of people in the party
-  *			name 		- the name of the party
-  */
-void partyArrival(int count, char _name[])
+
+/* 
+partyArrival: Handles an arrival of a new party.
+@param count: The number of people in the party
+@param partyName: The name of the party
+*/
+void partyArrival(int count, char partyName[])
 {
 	if(taxiQueue.head != NULL) /* If there is a taxi, immediate departure (No queue) */
 	{
-		printf("Taxi %d (Queued Taxi): Pick up party %s with %d people.\n", (int)(uintptr_t)dequeue(&taxiQueue), _name, count);
+		printf("Taxi %d (Queued Taxi): Pick up party %s with %d people.\n", (int)(uintptr_t)dequeue(&taxiQueue), partyName, count);
 		++servedGroups;
 		return;
 	}
@@ -157,7 +158,7 @@ void partyArrival(int count, char _name[])
 	}
 
 	newParty->amount = count;
-	strncpy(newParty->name, _name, 20);
+	strncpy(newParty->name, partyName, 20);
 	enqueue(newParty, &partyQueue);
 	++inlineGroups;
 }	
