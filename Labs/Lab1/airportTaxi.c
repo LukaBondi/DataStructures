@@ -10,20 +10,19 @@
 
 /* --------------- Data structures --------------- */
 
-/* Doubly linked list node */
+/* Singly linked list node */
 typedef struct _node
 {
 	void* data;
-	struct _node* prevNode;
 	struct _node* nextNode;
 } node_t;
 
-/* Linked List-based Queue */
-typedef struct _queue
+/* Linked List */
+typedef struct _linkedlist
 {
 	node_t* head;
 	node_t* tail;
-} queue_t;
+} linkedlist_t;
 
 /* Party/Group structure */
 typedef struct _party
@@ -33,20 +32,22 @@ typedef struct _party
 
 } party_t;
 
-/* ---------------Global variables --------------- */
+/* --------------- Global variables --------------- */
 
-queue_t partyQueue = { NULL, NULL };
-queue_t taxiQueue = { NULL, NULL };
+linkedlist_t partyQueue = { NULL, NULL };
+linkedlist_t taxiQueue = { NULL, NULL };
 int taxiRegistration = 1;
 int servedGroups = 0; 
 int inlineGroups = 0; 
+
+/* --------------- Linked list-based Queue implementation --------------- */
 
 /* 
 Enqueue: Add data (of any type) to a specified queue.
 @param _data: Pointer to data (of any type) to be stored
 @param _queue: Pointer to the queue
 */
-void enqueue(void* _data, queue_t* _queue)
+void enqueue(void* _data, linkedlist_t* _queue)
 {
 	node_t* newNode = calloc(1, sizeof(node_t));
 	if(newNode == NULL)
@@ -57,7 +58,6 @@ void enqueue(void* _data, queue_t* _queue)
 
 	/* Filling node attributes */
 	newNode->data = _data; /* Fill data */
-	newNode->prevNode = _queue->tail; /* Fill current node */
 	newNode->nextNode = NULL; /* No next node (new tail) */
 	
 	if(_queue->tail != NULL)
@@ -79,7 +79,7 @@ Dequeue: Remove data (of any type) from a specified queue.
 @param _queue: Pointer to the queue
 @return: Pointer to the allocated data
 */
-void* dequeue(queue_t* _queue)
+void* dequeue(linkedlist_t* _queue)
 {	
 	if(_queue->head == NULL)
 	{
@@ -104,7 +104,7 @@ void* dequeue(queue_t* _queue)
 freeAll: Free all of the contents from the queue
 @param _queue: Pointer to the queue
 */
-void freeAll(queue_t* _queue)
+void freeAll(linkedlist_t* _queue)
 {
 	while(_queue->head != NULL)
 	{
@@ -113,6 +113,8 @@ void freeAll(queue_t* _queue)
 		_data = NULL;
 	}
 }
+
+/* --------------- Taxi/Party arrival --------------- */
 
 /* 
 partyArrival: Handles an arrival of a new taxi
@@ -163,17 +165,18 @@ void partyArrival(int count, char partyName[])
 	++inlineGroups;
 }	
 
+/* --------------- Main --------------- */
 
-/* Main function loops for however many timesteps is specified, 
- * reading from the standard input and handling taxi / party arrivals
- */
+/* 
+Main function loops for however many timesteps is specified, 
+reading from the standard input and handling taxi / party arrivals
+*/
 int main(int argc, char* argv[])
 {
  	int timesteps; // The total number of timesteps
  	char input[10]; // For the input prefix "Taxi" or "Party"
 
  	char name[20]; // The party name 
- 	int rank; // The party's status
  	int count; // The number of people in the party
 
  	scanf("%d", &timesteps);
