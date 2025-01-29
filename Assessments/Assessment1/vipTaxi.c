@@ -245,7 +245,7 @@ void freeRankQueue(rankQueue_t* rankQueue)
 /* --------------- Taxi/Party arrival --------------- */
 
 /* 
-partyArrival: Handles an arrival of a new taxi
+taxiArrival	: Handles an arrival of a new taxi
 */
 void taxiArrival()
 {
@@ -286,7 +286,7 @@ void partyArrival(int rank, int count, char partyName[])
 
 	if(rank < topQueue->rank) /* Low priority */
 	{
-		printf("Rejected: Party [%s] Rank %d\n", partyName, rank);
+		printf("Rejected\n");
 		return;
 	}
 	else if(rank > topQueue->rank) /* High priority, create new queue */
@@ -305,7 +305,7 @@ void partyArrival(int rank, int count, char partyName[])
 	newParty->amount = count;
 	strncpy(newParty->name, partyName, 20);
 	enqueue(newParty, topQueue->list);
-	printf("Accepted: Party [%s] Rank %d\n", partyName, rank);
+	printf("Accepted\n");
 }	
 
 /* 
@@ -331,7 +331,7 @@ void freeAll()
 Main function loops for however many timesteps is specified, 
 reading from the standard input and handling taxi / party arrivals
 */
-int main()//int argc, char* argv[])
+int main(int argc, char* argv[])
 {
  	int timesteps; /* The total number of timesteps */
  	char input[10]; /* For the input prefix "Taxi" or "Party" */
@@ -342,8 +342,6 @@ int main()//int argc, char* argv[])
 	rankQueue_t* queueArr[MAX_STACK_SIZE] = { NULL }; /* Array of pointers to queues */
 	queueStack.arr = queueArr; /* Set stack array pointer */
 
-	printf("%p\n", queueStack.arr);
-	
  	scanf("%d", &timesteps);
  	for (int i = 0 ; i < timesteps ; i ++)
  	{
