@@ -92,9 +92,13 @@ void* dequeue(linkedlist_t* _queue)
 	llnode_t* prevHead = _queue->head;
 	void* item = (_queue->head)->data;
 	
-
 	/* Reassign new head */
 	_queue->head = (_queue->head)->nextNode;
+	if(_queue->head == NULL)
+	{
+		/* If the new head is null, tail must also be null */
+		_queue->tail = NULL;
+	}
 
 	/* Free and set old pointer to NULL*/
 	free(prevHead);
@@ -157,8 +161,7 @@ void insertChild(tnode_t* _parent, char* _name)
 }
 
 /* 
-BFPrint: Print the string in every node in the tree/subtree 
-		using Breadth-First Traversal
+BFPrint: Print the string in every node in the tree/subtree using Breadth-First Traversal
 @param _root: Pointer to the root node of the tree/subtree
 */
 void BFPrint(tnode_t* _root)
@@ -181,8 +184,8 @@ void BFPrint(tnode_t* _root)
 }
 
 /* 
-BFSearch: Print the string in every node in the tree/subtree 
-		using Breadth-First Traversal
+BFSearch: Search for the node name in every node in the 
+		tree/subtree using Breadth-First Traversal
 @param _root: Pointer to the root node of the tree/subtree
 @param _name: The name to search for in the tree/subtree
 @return: Pointer to the first matching node
