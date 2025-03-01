@@ -13,7 +13,7 @@
 
 /* --------------- Data structures --------------- */
 
-/* Singly linked list node */
+/* Custom Singly linked list node */
 typedef struct _node
 {
 	char* word;
@@ -128,7 +128,7 @@ void queryDefinition(char* word)
         if(!strcmp(word, nodePtr->word))
         {
             printf("%s: %s\n", nodePtr->word, nodePtr->definition);
-            ++wordFound; /* Atleast one definition is found*/
+            ++wordFound; /* Atleast one definition is found */
         }
         nodePtr = nodePtr->nextNode;
     }
