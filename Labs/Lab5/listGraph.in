@@ -1,0 +1,16 @@
+15
+AddVertex 1
+AddVertex 2
+AddVertex 3
+AddVertex 4
+AddVertex 5
+AddVertex 6
+AddEdge 1 2
+AddEdge 2 3
+AddEdge 3 4
+AddEdge 4 1
+AddEdge 5 6
+Print 1
+Print 5
+Print 6
+Print 999
