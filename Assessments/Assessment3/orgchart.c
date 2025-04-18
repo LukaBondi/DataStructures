@@ -108,7 +108,7 @@ indexTreeInsert: Add a new index into the binary tree.
 @param index: Pointer to the index string
 @param orgNode: Pointer to the tree node
 */
-void indexTreeInsert(bstnode_t* root, const char* index, tnode_t* orgNode)
+void indexTreeInsert(bstnode_t* root, char* index, tnode_t* orgNode)
 {
     /* Non-existent root */
     if(root == NULL) return;
@@ -163,7 +163,7 @@ indexTreeSearch: Search for an index in the binary tree.
 @param index: Pointer to the index string to compare
 @return: Pointer to the corresponding tree node of the given index
 */
-tnode_t* indexTreeSearch(bstnode_t* root, const char* index)
+tnode_t* indexTreeSearch(bstnode_t* root, char* index)
 {
     /* Traverse the bst */
     bstnode_t* currNode = root;
@@ -422,7 +422,6 @@ void freeAll()
 
 int main()
 {
-    char input[128];
     char name[32];
     char employeeId[8];
     char jobTitle[32];
